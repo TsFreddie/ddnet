@@ -695,6 +695,7 @@ void CPlayer::TryRespawn()
 	m_Spawning = false;
 	m_pCharacter = new(m_ClientID) CCharacter(&GameServer()->m_World);
 	m_pCharacter->Spawn(this, SpawnPos);
+	m_ViewPos = SpawnPos;
 	GameServer()->CreatePlayerSpawn(SpawnPos, GameServer()->m_pController->GetMaskForPlayerWorldEvent(m_ClientID));
 
 	if(g_Config.m_SvTeam == 3)
@@ -849,6 +850,7 @@ int CPlayer::Pause(int State, bool Force)
 					return m_Paused; // Do not update state. Do not collect $200
 				}
 				m_pCharacter->Pause(false);
+				m_ViewPos = m_pCharacter->m_Pos;
 				GameServer()->CreatePlayerSpawn(m_pCharacter->m_Pos, GameServer()->m_pController->GetMaskForPlayerWorldEvent(m_ClientID));
 			}
 			// fall-thru
