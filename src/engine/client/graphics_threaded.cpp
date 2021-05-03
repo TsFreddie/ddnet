@@ -2248,10 +2248,10 @@ int CGraphics_Threaded::Init()
 	if(InitWindow() != 0)
 		return -1;
 
-	for(unsigned int i = 0; i < sizeof(g_aFakeModes) / sizeof(CVideoMode); i++)
+	for(auto &FakeMode : g_aFakeModes)
 	{
-		g_aFakeModes[i].m_WindowWidth = g_aFakeModes[i].m_CanvasWidth / m_ScreenHiDPIScale;
-		g_aFakeModes[i].m_WindowHeight = g_aFakeModes[i].m_CanvasHeight / m_ScreenHiDPIScale;
+		FakeMode.m_WindowWidth = FakeMode.m_CanvasWidth / m_ScreenHiDPIScale;
+		FakeMode.m_WindowHeight = FakeMode.m_CanvasHeight / m_ScreenHiDPIScale;
 	}
 
 	// create command buffers
