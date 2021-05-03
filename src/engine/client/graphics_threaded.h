@@ -498,6 +498,7 @@ public:
 		CVideoMode *m_pModes; // processor will fill this in
 		int m_MaxModes; // maximum of modes the processor can write to the m_pModes
 		int *m_pNumModes; // processor will write to this pointer
+		float m_HiDPIScale; // hidpi scale calculated based on initialized window
 		int m_Screen;
 	};
 
@@ -1152,7 +1153,7 @@ public:
 	void Swap() override;
 	bool SetVSync(bool State) override;
 
-	int GetVideoModes(CVideoMode *pModes, int MaxModes, int Screen) override;
+	int GetVideoModes(CVideoMode *pModes, int MaxModes, int Screen, float HiDPIScale) override;
 
 	virtual int GetDesktopScreenWidth() const { return m_DesktopScreenWidth; }
 	virtual int GetDesktopScreenHeight() const { return m_DesktopScreenHeight; }

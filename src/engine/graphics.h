@@ -93,7 +93,8 @@ public:
 class CVideoMode
 {
 public:
-	int m_Width, m_Height;
+	int m_CanvasWidth, m_CanvasHeight;
+	int m_WindowWidth, m_WindowHeight;
 	int m_Red, m_Green, m_Blue;
 };
 
@@ -161,6 +162,7 @@ protected:
 	int m_ScreenHeight;
 	int m_DesktopScreenWidth;
 	int m_DesktopScreenHeight;
+	float m_ScreenHiDPIScale;
 
 public:
 	/* Constants: Texture Loading Flags
@@ -195,6 +197,7 @@ public:
 	int ScreenWidth() const { return m_ScreenWidth; }
 	int ScreenHeight() const { return m_ScreenHeight; }
 	float ScreenAspect() const { return (float)ScreenWidth() / (float)ScreenHeight(); }
+	float ScreenHiDPIScale() const { return m_ScreenHiDPIScale; }
 
 	virtual void SetWindowParams(int FullscreenMode, bool IsBorderless) = 0;
 	virtual bool SetWindowScreen(int Index) = 0;
@@ -371,7 +374,7 @@ public:
 
 	virtual void TakeScreenshot(const char *pFilename) = 0;
 	virtual void TakeCustomScreenshot(const char *pFilename) = 0;
-	virtual int GetVideoModes(CVideoMode *pModes, int MaxModes, int Screen) = 0;
+	virtual int GetVideoModes(CVideoMode *pModes, int MaxModes, int Screen, float HiDPIScale) = 0;
 
 	virtual void Swap() = 0;
 	virtual int GetNumScreens() const = 0;

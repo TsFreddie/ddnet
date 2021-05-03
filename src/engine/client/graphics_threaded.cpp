@@ -2243,6 +2243,8 @@ int CGraphics_Threaded::Init()
 	if(InitWindow() != 0)
 		return -1;
 
+	m_ScreenHiDPIScale = m_ScreenWidth / (float)g_Config.m_GfxScreenWidth;
+
 	// create command buffers
 	for(auto &pCommandBuffer : m_apCommandBuffers)
 		pCommandBuffer = new CCommandBuffer(CMD_BUFFER_CMD_BUFFER_SIZE, CMD_BUFFER_DATA_BUFFER_SIZE);
@@ -2501,7 +2503,7 @@ const char *CGraphics_Threaded::GetRendererString()
 	return m_pBackend->GetRendererString();
 }
 
-int CGraphics_Threaded::GetVideoModes(CVideoMode *pModes, int MaxModes, int Screen)
+int CGraphics_Threaded::GetVideoModes(CVideoMode *pModes, int MaxModes, int Screen, float HiDPIScale)
 {
 	if(g_Config.m_GfxDisplayAllModes)
 	{
@@ -2522,6 +2524,7 @@ int CGraphics_Threaded::GetVideoModes(CVideoMode *pModes, int MaxModes, int Scre
 	Cmd.m_MaxModes = MaxModes;
 	Cmd.m_pNumModes = &NumModes;
 	Cmd.m_Screen = Screen;
+	Cmd.m_HiDPIScale = HiDPIScale;
 
 	if(!AddCmd(
 		   Cmd, [] { return true; }, "failed to add video mode command"))

@@ -4024,7 +4024,7 @@ void CCommandProcessorFragment_SDL::Cmd_VideoModes(const CCommandBuffer::SComman
 		bool AlreadyFound = false;
 		for(int j = 0; j < numModes; j++)
 		{
-			if(pCommand->m_pModes[j].m_Width == mode.w && pCommand->m_pModes[j].m_Height == mode.h)
+			if(pCommand->m_pModes[j].m_CanvasWidth == mode.w && pCommand->m_pModes[j].m_CanvasHeight == mode.h)
 			{
 				AlreadyFound = true;
 				break;
@@ -4033,8 +4033,10 @@ void CCommandProcessorFragment_SDL::Cmd_VideoModes(const CCommandBuffer::SComman
 		if(AlreadyFound)
 			continue;
 
-		pCommand->m_pModes[numModes].m_Width = mode.w;
-		pCommand->m_pModes[numModes].m_Height = mode.h;
+		pCommand->m_pModes[numModes].m_CanvasWidth = mode.w;
+		pCommand->m_pModes[numModes].m_CanvasHeight = mode.h;
+		pCommand->m_pModes[numModes].m_WindowWidth = mode.w / pCommand->m_HiDPIScale;
+		pCommand->m_pModes[numModes].m_WindowHeight = mode.h / pCommand->m_HiDPIScale;
 		pCommand->m_pModes[numModes].m_Red = 8;
 		pCommand->m_pModes[numModes].m_Green = 8;
 		pCommand->m_pModes[numModes].m_Blue = 8;
