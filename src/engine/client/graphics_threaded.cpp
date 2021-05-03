@@ -2328,14 +2328,11 @@ void CGraphics_Threaded::Resize(int w, int h, bool SetWindowSize)
 		return;
 #endif
 
-	if(m_ScreenWidth == w && m_ScreenHeight == h)
+	if(WindowWidth() == w && WindowHeight() == h)
 		return;
 
 	if(SetWindowSize)
 		m_pBackend->ResizeWindow(w, h);
-
-	m_ScreenWidth = w;
-	m_ScreenHeight = h;
 
 	m_pBackend->GetViewportSize(m_ScreenWidth, m_ScreenHeight);
 
