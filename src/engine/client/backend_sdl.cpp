@@ -4551,6 +4551,8 @@ int CGraphicsBackend_SDL_OpenGL::Init(const char *pName, int *Screen, int *pWidt
 
 	if(g_Config.m_InpMouseOld)
 		SDL_SetHint(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1");
+	if(!(Flags & IGraphicsBackend::INITFLAG_HIGHDPI))
+		SDL_SetHintWithPriority(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "1", SDL_HINT_OVERRIDE);
 
 	m_pWindow = SDL_CreateWindow(
 		pName,
@@ -4591,7 +4593,12 @@ int CGraphicsBackend_SDL_OpenGL::Init(const char *pName, int *Screen, int *pWidt
 
 	InitError = IsVersionSupportedGlew(g_Config.m_GfxOpenGLMajor, g_Config.m_GfxOpenGLMinor, g_Config.m_GfxOpenGLPatch, GlewMajor, GlewMinor, GlewPatch);
 
-	SDL_GL_GetDrawableSize(m_pWindow, pCurrentWidth, pCurrentHeight);
+	// SDL_GL_GetDrawableSize reports HiDPI resolution with SDL_WINDOW_ALLOW_HIGHDPI not set which is wrong
+	if(SdlFlags & SDL_WINDOW_ALLOW_HIGHDPI)
+		SDL_GL_GetDrawableSize(m_pWindow, pCurrentWidth, pCurrentHeight);
+	else
+		SDL_GetWindowSize(m_pWindow, pCurrentWidth, pCurrentHeight);
+
 	SDL_GL_SetSwapInterval(Flags & IGraphicsBackend::INITFLAG_VSYNC ? 1 : 0);
 	SDL_GL_MakeCurrent(NULL, NULL);
 

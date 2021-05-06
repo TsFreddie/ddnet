@@ -2087,11 +2087,8 @@ int CGraphics_Threaded::IssueInit()
 	if(g_Config.m_GfxResizable)
 		Flags |= IGraphicsBackend::INITFLAG_RESIZABLE;
 
-	int CanvasWidth;
-	int CanvasHeight;
-	int r = m_pBackend->Init("DDNet Client", &g_Config.m_GfxScreen, &g_Config.m_GfxScreenWidth, &g_Config.m_GfxScreenHeight, g_Config.m_GfxFsaaSamples, Flags, &m_DesktopScreenWidth, &m_DesktopScreenHeight, &CanvasWidth, &CanvasHeight, m_pStorage);
-	m_pBackend->GetViewportSize(m_ScreenWidth, m_ScreenHeight);
-	m_ScreenHiDPIScale = CanvasWidth / (float)g_Config.m_GfxScreenWidth;
+	int r = m_pBackend->Init("DDNet Client", &g_Config.m_GfxScreen, &g_Config.m_GfxScreenWidth, &g_Config.m_GfxScreenHeight, g_Config.m_GfxFsaaSamples, Flags, &m_DesktopScreenWidth, &m_DesktopScreenHeight, &m_ScreenWidth, &m_ScreenHeight, m_pStorage);
+	m_ScreenHiDPIScale = m_ScreenWidth / (float)g_Config.m_GfxScreenWidth;
 
 	AddBackEndWarningIfExists();
 	m_IsNewOpenGL = m_pBackend->IsNewOpenGL();
