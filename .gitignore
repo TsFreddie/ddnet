@@ -8,6 +8,7 @@ docs/
 bundle/
 !/other/bundle/
 
+.cmake
 .ninja_deps
 .ninja_log
 CMakeCache.txt

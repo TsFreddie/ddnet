@@ -15,7 +15,7 @@ if(NOT GLEW_FOUND)
   set_src(GLEW_INCLUDES GLOB ${GLEW_SRC_DIR}/GL eglew.h glew.h glxew.h wglew.h)
   add_library(glew EXCLUDE_FROM_ALL OBJECT ${GLEW_SRC} ${GLEW_INCLUDES})
   set(GLEW_INCLUDEDIR ${GLEW_SRC_DIR})
-  target_include_directories(glew PRIVATE ${GLEW_INCLUDEDIR})
+  target_include_directories(glew BEFORE PRIVATE ${GLEW_INCLUDEDIR})
   target_compile_definitions(glew PRIVATE GLEW_STATIC)
 
   set(GLEW_DEP $<TARGET_OBJECTS:glew>)
